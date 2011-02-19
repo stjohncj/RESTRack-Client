@@ -1,0 +1,7 @@
+uri = URI.new('http://localhost')
+client = RESTRackClient.new(uri)
+foo_resource = client.foo(123)                                    # pivot object that hasn't yet made request
+foo = foo_resource.get( { :data => 'something_here' } )           # request is made to GET /foo/123
+bar = client.foo(123).bar                                         # pivot object that hasn't yet made request
+bar.delete                                                        # request is made to DELETE /foo/123/bar
+bar = client.foo(123).bar.post( { :data => 'something_here' } )   # request is made to POST /foo/123/bar
