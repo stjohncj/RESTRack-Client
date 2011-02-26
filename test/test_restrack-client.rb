@@ -142,6 +142,16 @@ class TestRESTRackClient < Test::Unit::TestCase
     assert object.class.to_s, 'RESTRack::Client'
     assert object.const_get(:path), '/responses/1'
   end
+  should 'pivot' do
+    client = RESTRack::Client.new('http://localhost:9292')
+    object = client.responses(1)
+    get_response = nil
+    assert_nothing_raised do
+      get_response = object.get
+    end
+    expected_response = { 'action' => 'show', 'id' => '1' }
+    assert_equal expected_response, get_response
+  end
   should 'walk a relation path to a child resource' do
     client = RESTRack::Client.new('http://localhost:9292')
     post_response = nil
