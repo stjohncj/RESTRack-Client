@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Chris St. John']
   s.email       = ['chris@stjohnstudios.com']
-  s.homepage    = 'http://github.com/stjohncj/RESTRackClient'
+  s.homepage    = 'http://github.com/stjohncj/RESTRack-Client'
   s.summary     = %q{A library for interacting with RESTful web services.  Use this to communicate with RESTRack based services.}
   s.description = %q{A library for interacting with RESTful web services.  Use this to communicate with RESTRack based services.}
   s.rubyforge_project = "restrack-client"
