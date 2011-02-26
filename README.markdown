@@ -1,4 +1,4 @@
-# RESTRackClient
+# RESTRack::Client
 
 A library for interacting with RESTful web services.  Use this to communicate with RESTRack based services.
 
