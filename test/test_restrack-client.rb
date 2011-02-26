@@ -136,6 +136,12 @@ class TestRESTRackClient < Test::Unit::TestCase
   #  expected_response = { 'action' => 'add', 'id' => '1', 'data' => data }
   #  assert_equal expected_response, post_response
   #end
+  should 'allow building of request path prior to request' do
+    client = RESTRack::Client.new('http://localhost:9292')
+    object = client.responses(1)
+    assert object.class.to_s, 'RESTRack::Client'
+    assert object.const_get(:path), '/responses/1'
+  end
   should 'walk a relation path to a child resource' do
     client = RESTRack::Client.new('http://localhost:9292')
     post_response = nil
