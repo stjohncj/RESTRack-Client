@@ -6,37 +6,37 @@ require 'xmlsimple'
 
 module RESTRack
   class Client
-    
+
     def initialize(uri, format=:JSON)
       @uri = URI.parse(uri) unless uri.is_a? URI
       @path = ''
       @format = format
     end
-    
+
     def method_missing(resource_name, *args)
       @path << '/' + resource_name.to_s + '/' + args.join('/')
       self
     end
-    
+
     def get
       request = Net::HTTP::Get.new(@path)
       response = send request
       parse response
     end
-    
+
     def delete
       request = Net::HTTP::Delete.new(@path)
       response = send request
       parse response
     end
-    
+
     def post(data=nil)
       request = Net::HTTP::Post.new(@path, {'Content-Type' => content_type })
       request.body = prepare data unless data.nil?
       response = send request
       parse response
     end
-    
+
     def put(data=nil)
       request = Net::HTTP::Put.new(@path, {'Content-Type' => content_type })
       request.body = prepare data unless data.nil?
@@ -48,7 +48,7 @@ module RESTRack
     def content_type
       RESTRack.mime_type_for(@format).to_s
     end
-    
+
     def prepare(data)
       case @format
       when :JSON
@@ -62,7 +62,7 @@ module RESTRack
       end
       data
     end
-    
+
     def send(request)
       response = Net::HTTP.start(@uri.host, @uri.port) { |http| http.request(request) }
       unless response.kind_of?(Net::HTTPSuccess)
@@ -71,7 +71,7 @@ module RESTRack
       end
       response
     end
-    
+
     def parse(response)
       mime_type = MIME::Type.new( response.content_type )#response['content-type'] )
       if mime_type.like?( RESTRack.mime_type_for( :JSON ) )
@@ -85,7 +85,6 @@ module RESTRack
   end
 end
 
-# XXX - code smells this is also in RESTRack lib/support.rb
 module RESTRack
   def self.mime_type_for(format)
     MIME::Types.type_for(format.to_s.downcase)[0]

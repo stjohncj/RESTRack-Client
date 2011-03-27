@@ -8,5 +8,5 @@ task :default => [:test]
 
 desc 'Run tests.'
 Rake::TestTask.new('test') { |t|
-  t.pattern = 'test/**/*.rb'
+  t.pattern = 'test/test_*.rb'
 }

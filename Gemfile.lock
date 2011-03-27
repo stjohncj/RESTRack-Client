@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    restrack-client (0.0.0)
+    restrack-client (0.1.4)
       i18n
       json
       mime-types
