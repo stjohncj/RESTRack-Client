@@ -65,11 +65,6 @@ module RESTRack
 
     def send(request)
       response = Net::HTTP.start(@uri.host, @uri.port) { |http| http.request(request) }
-      unless response.kind_of?(Net::HTTPSuccess)
-        e = RuntimeError.new("#{request.method} #{request.path} - #{res.code}:#{res.message}\n#{res.body}")
-        raise e
-      end
-      response
     end
 
     def parse(response)
@@ -92,4 +87,3 @@ module RESTRack
 end
 MIME::Types['text/plain'][0].extensions << 'text'
 MIME::Types.index_extensions( MIME::Types['text/plain'][0] )
-# -------------------------------------------------------/
