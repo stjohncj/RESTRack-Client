@@ -64,6 +64,7 @@ module RESTRack
     end
 
     def send(request)
+      @path = ''
       response = Net::HTTP.start(@uri.host, @uri.port) { |http| http.request(request) }
     end
 

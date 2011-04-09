@@ -1,7 +1,7 @@
 require File.join( File.dirname(__FILE__ ), 'helper' )
 
 class TestRESTRackClient < Test::Unit::TestCase
-  
+
   context 'instantiation' do
     should 'accept a String URI' do
       assert_nothing_raised { client_1 = RESTRack::Client.new('http://localhost:9292') }
@@ -11,7 +11,7 @@ class TestRESTRackClient < Test::Unit::TestCase
       assert_nothing_raised { client_2 = RESTRack::Client.new(uri) }
     end
   end
-  
+
   should 'get a resource' do
     client = RESTRack::Client.new('http://localhost:9292')
     get_response = nil
@@ -30,7 +30,7 @@ class TestRESTRackClient < Test::Unit::TestCase
     expected_response = { 'action' => 'index' }
     assert_equal expected_response, get_response
   end
-  
+
   should 'delete a resource' do
     client = RESTRack::Client.new('http://localhost:9292')
     delete_response = nil
@@ -49,7 +49,7 @@ class TestRESTRackClient < Test::Unit::TestCase
     expected_response = { 'action' => 'destroy' }
     assert_equal expected_response, delete_response
   end
-  
+
   should 'post a resource' do
     client = RESTRack::Client.new('http://localhost:9292')
     post_response = nil
@@ -74,7 +74,7 @@ class TestRESTRackClient < Test::Unit::TestCase
     expected_response = { 'action' => 'create', 'data' => data }
     assert_equal expected_response, post_response
   end
-  
+
   should 'put a resource' do
     client = RESTRack::Client.new('http://localhost:9292')
     put_response = nil
@@ -99,7 +99,7 @@ class TestRESTRackClient < Test::Unit::TestCase
     expected_response = { 'action' => 'replace', 'data' => data }
     assert_equal expected_response, put_response
   end
-  
+
   should 'send and parse response json data' do
     client = RESTRack::Client.new('http://localhost:9292', :JSON)
     post_response = nil
@@ -164,5 +164,29 @@ class TestRESTRackClient < Test::Unit::TestCase
     expected_response = { 'action' => 'add', 'id' => '1', 'data' => data }
     assert_equal expected_response, post_response
   end
-  
+
+  should 'handle multiple sequential requests' do
+    client = RESTRack::Client.new('http://localhost:9292')
+    get_response = nil
+    assert_nothing_raised do
+      get_response = client.responses(1).get
+    end
+    expected_response = { 'action' => 'show', 'id' => '1' }
+    assert_equal expected_response, get_response
+
+    get_response = nil
+    assert_nothing_raised do
+      get_response = client.responses(1).get
+    end
+    expected_response = { 'action' => 'show', 'id' => '1' }
+    assert_equal expected_response, get_response
+
+    get_response = nil
+    assert_nothing_raised do
+      get_response = client.responses(1).get
+    end
+    expected_response = { 'action' => 'show', 'id' => '1' }
+    assert_equal expected_response, get_response
+  end
+
 end
