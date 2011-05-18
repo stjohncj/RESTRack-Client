@@ -1,13 +1,14 @@
 # RESTRack::Client
 
-A library for interacting with RESTful web services.  Use this to communicate with RESTRack based services.
+A library for interacting with RESTful web services.
+Use this to communicate with RESTRack based services.
 
 
 ## Usage
     
     uri = URI.new('http://localhost')
-    client = RESTRackClient.new(uri)
-    client = RESTRackClient.new('http://localhost')
+    client = RESTRack::Client.new(uri)
+    client = RESTRack::Client.new('http://localhost')
     foo_resource = client.foo(123)                                    # pivot object that hasn't yet made request
     foo = foo_resource.get( { :data => 'something_here' } )           # request is made to GET /foo/123
     bar = client.foo(123).bar                                         # pivot object that hasn't yet made request
