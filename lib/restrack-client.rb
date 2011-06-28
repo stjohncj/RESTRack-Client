@@ -14,7 +14,8 @@ module RESTRack
     end
 
     def method_missing(resource_name, *args)
-      @path << '/' + resource_name.to_s + '/' + args.join('/')
+      @path << '/' + resource_name.to_s
+      @path << '/' + args.join('/') if args.length > 0
       self
     end
 
