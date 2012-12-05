@@ -8,11 +8,7 @@ module RESTRack
   class Client
 
     def initialize(uri, format=:JSON)
-      if uri.is_a? URI
-	@uri = uri
-      else
-        @uri = URI.parse(uri)
-      end
+			uri.is_a? URI ? @uri = uri : @uri = URI.parse(uri)
       @path = ''
       @format = format
     end
